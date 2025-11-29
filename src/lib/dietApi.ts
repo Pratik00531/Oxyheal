@@ -2,7 +2,7 @@
 
 import type { DietPlan, DietEligibility } from '@/types/diet';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 interface ApiResponse<T> {
   data: T | null;

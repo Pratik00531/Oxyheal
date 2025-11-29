@@ -2,7 +2,7 @@
 
 import type { DailyLog, DailyLogCreate, DailyLogStats, ChartData } from '@/types/dailyLogs';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 interface ApiResponse<T> {
   data: T | null;
