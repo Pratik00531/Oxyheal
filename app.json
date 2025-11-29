@@ -1,0 +1,42 @@
+{
+  "name": "OxyHeal",
+  "description": "Personal Lung Health Companion - Comprehensive health tracking platform for respiratory wellness",
+  "repository": "https://github.com/Pratik00531/Oxyheal",
+  "keywords": ["health", "respiratory", "lung-cancer", "wellness", "fastapi", "react"],
+  "env": {
+    "SUPABASE_URL": {
+      "description": "Your Supabase project URL",
+      "required": true
+    },
+    "SUPABASE_SERVICE_ROLE_KEY": {
+      "description": "Your Supabase service role key",
+      "required": true
+    },
+    "JWT_SECRET": {
+      "description": "Secret key for JWT token generation",
+      "generator": "secret",
+      "required": true
+    },
+    "ALGORITHM": {
+      "description": "JWT algorithm",
+      "value": "HS256",
+      "required": false
+    },
+    "ACCESS_TOKEN_EXPIRE_MINUTES": {
+      "description": "JWT token expiration time in minutes",
+      "value": "60",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

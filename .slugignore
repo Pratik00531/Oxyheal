@@ -1,0 +1,23 @@
+# Files to ignore during Heroku slug compilation
+*.md
+!README.md
+.git
+.gitignore
+.vscode
+.idea
+*.log
+test_*.py
+tests/
+node_modules/
+src/
+public/
+*.json
+!package.json
+!app.json
+tsconfig*.json
+vite.config.ts
+tailwind.config.ts
+postcss.config.js
+eslint.config.js
+bun.lockb
+package-lock.json
