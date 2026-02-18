@@ -9,12 +9,14 @@
 A comprehensive health tracking platform focused on respiratory wellness, lung cancer screening, and personalized health management.
 
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat&logo=react)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python)](https://www.python.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat&logo=supabase)](https://supabase.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Pratik00531/Oxyheal/pulls)
 
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [Usage](#-usage) • [API Documentation](#-api-documentation)
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [Usage](#-usage) • [API Documentation](#-api-documentation) • [Demo](#-demo)
 
 </div>
 
@@ -23,6 +25,7 @@ A comprehensive health tracking platform focused on respiratory wellness, lung c
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
+- [Demo](#-demo)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
@@ -31,8 +34,11 @@ A comprehensive health tracking platform focused on respiratory wellness, lung c
 - [Usage](#-usage)
 - [API Documentation](#-api-documentation)
 - [Database Schema](#-database-schema)
+- [Deployment](#-deployment)
+- [Screenshots](#-screenshots)
 - [Contributing](#-contributing)
 - [License](#-license)
+- [Support](#-support)
 
 ---
 
@@ -43,6 +49,35 @@ A comprehensive health tracking platform focused on respiratory wellness, lung c
 ### 🎯 Mission
 
 To empower individuals with tools and insights for better lung health through early detection, preventive care, and lifestyle management.
+
+---
+
+## 🎬 Demo
+
+### Live Application
+- **Frontend**: [Visit OxyHeal](https://oxyheal-frontend-e4f0f7c1aba7.herokuapp.com)
+- **API Docs**: Check `/docs` endpoint for interactive Swagger documentation
+
+### Quick Start
+```bash
+# Clone repository
+git clone https://github.com/Pratik00531/Oxyheal.git
+
+# Install dependencies
+npm install && cd backend && pip install -r requirements.txt
+
+# Run development servers
+npm run dev  # Frontend on :8080
+uvicorn app.main:app --reload  # Backend on :8000
+```
+
+### Test Credentials
+```
+Email: demo@oxyheal.com
+Password: demo123
+```
+
+> **Note**: This is a demonstration project. For production use, ensure proper security measures.
 
 ---
 
@@ -533,6 +568,71 @@ See `backend/*.sql` files for complete schema definitions.
 
 ---
 
+## 🚀 Deployment
+
+### Heroku Deployment
+
+#### Backend API
+
+```bash
+# Login to Heroku
+heroku login
+
+# Create app
+heroku create oxyheal-backend
+
+# Set environment variables
+heroku config:set SUPABASE_URL="your_url" -a oxyheal-backend
+heroku config:set SUPABASE_KEY="your_key" -a oxyheal-backend
+heroku config:set JWT_SECRET="your_secret" -a oxyheal-backend
+
+# Deploy
+git push heroku main
+
+# Scale dyno
+heroku ps:scale web=1 -a oxyheal-backend
+```
+
+#### Frontend
+
+```bash
+# Build frontend
+npm run build
+
+# Create frontend app
+heroku create oxyheal-frontend
+
+# Deploy
+git push heroku main
+```
+
+### Vercel Deployment
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel --prod
+```
+
+### Docker Deployment
+
+```bash
+# Build and run backend
+cd backend
+docker build -t oxyheal-backend .
+docker run -p 8000:8000 --env-file .env oxyheal-backend
+
+# Build and run frontend
+docker build -t oxyheal-frontend .
+docker run -p 8080:8080 oxyheal-frontend
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+---
+
 ## 🎨 Screenshots
 
 ### Dashboard
@@ -569,6 +669,82 @@ Contributions are welcome! Please follow these steps:
 - Write meaningful commit messages
 - Add comments for complex logic
 - Update documentation for API changes
+- Write tests for new features
+- Follow the existing code structure
+
+### Code Style
+
+```typescript
+// Good: Descriptive names, proper typing
+const calculatePackYears = (packsPerDay: number, yearsSmoked: number): number => {
+  return packsPerDay * yearsSmoked;
+};
+
+// Good: Proper error handling
+try {
+  const result = await api.createAssessment(data);
+  if (result.error) {
+    toast({ title: "Error", description: result.error, variant: "destructive" });
+  }
+} catch (error) {
+  console.error("Unexpected error:", error);
+}
+```
+
+---
+
+## 🔒 Security Best Practices
+
+- **Environment Variables**: Never commit `.env` files
+- **JWT Tokens**: Use strong secret keys (minimum 256 bits)
+- **Password Hashing**: Uses bcrypt with proper salt rounds
+- **Input Validation**: Pydantic models validate all API inputs
+- **CORS**: Configured to allow only trusted origins
+- **File Uploads**: Validated file types and size limits (5MB)
+- **SQL Injection**: Protected via Supabase parameterized queries
+- **XSS Protection**: React automatically escapes user input
+
+### Recommended Security Measures
+
+1. Enable HTTPS in production
+2. Set secure cookie flags
+3. Implement rate limiting
+4. Add CSRF protection for forms
+5. Regular dependency updates
+6. Security headers (helmet.js)
+7. Database backups
+8. Monitor error logs
+
+---
+
+## 🧪 Testing
+
+```bash
+# Frontend tests
+npm run test
+
+# Backend tests
+cd backend
+pytest
+
+# E2E tests
+npm run test:e2e
+
+# Coverage
+npm run test:coverage
+```
+
+---
+
+## 📈 Performance Optimization
+
+- **Code Splitting**: Lazy loading for route components
+- **Image Optimization**: Compressed images under 100KB
+- **API Caching**: React Query with stale-while-revalidate
+- **Database Indexing**: Indexed frequently queried columns
+- **CDN**: Static assets served via CDN
+- **Compression**: Gzip/Brotli for text responses
+- **Bundle Size**: Keep main bundle under 200KB
 
 ---
 
@@ -605,14 +781,39 @@ For support, email patelpratik8489@gmail.com or open an issue in the GitHub repo
 
 ## 🔮 Roadmap
 
-- [ ] Mobile app (React Native)
-- [ ] Multi-language support
-- [ ] Telemedicine integration
-- [ ] Wearable device sync
-- [ ] AI-powered health insights
-- [ ] Community features
+### Phase 1: Core Features (Completed ✅)
+- [x] User authentication and profiles
+- [x] Lung cancer screening assessment
+- [x] Breathing exercises with animations
+- [x] Personalized diet plans
+- [x] Daily health logs and statistics
+- [x] Responsive design (mobile & desktop)
+
+### Phase 2: Enhanced Features (In Progress 🚧)
+- [ ] Advanced data visualization with charts
 - [ ] Export reports to PDF
-- [ ] Integration with healthcare providers
+- [ ] Email notifications for reminders
+- [ ] Multi-language support (Spanish, Hindi, Mandarin)
+- [ ] Dark mode toggle
+- [ ] Accessibility improvements (WCAG 2.1 AA)
+
+### Phase 3: Integration & Expansion (Planned 📋)
+- [ ] Mobile app (React Native)
+- [ ] Wearable device sync (Fitbit, Apple Watch)
+- [ ] AI-powered health insights and predictions
+- [ ] Telemedicine integration
+- [ ] Doctor appointment scheduling
+- [ ] Integration with healthcare providers (HL7 FHIR)
+- [ ] Social features and community support
+- [ ] Gamification and achievements
+
+### Phase 4: Advanced Analytics (Future 🌟)
+- [ ] Machine learning risk prediction models
+- [ ] Voice-guided breathing exercises
+- [ ] AR/VR breathing visualization
+- [ ] Personalized health coaching
+- [ ] Clinical trial matching
+- [ ] Research data anonymization and sharing
 
 ---
 
@@ -620,6 +821,17 @@ For support, email patelpratik8489@gmail.com or open an issue in the GitHub repo
 
 **Made with ❤️ for better respiratory health**
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Pratik00531/Oxyheal)
+[![Issues](https://img.shields.io/badge/Issues-Report%20Bug-red?style=for-the-badge)](https://github.com/Pratik00531/Oxyheal/issues)
+[![Contributors](https://img.shields.io/badge/Contributors-Welcome-brightgreen?style=for-the-badge)](https://github.com/Pratik00531/Oxyheal/graphs/contributors)
+
 ⭐ Star this repo if you find it helpful!
+
+---
+
+### Quick Links
+[Report Bug](https://github.com/Pratik00531/Oxyheal/issues) • [Request Feature](https://github.com/Pratik00531/Oxyheal/issues) • [Documentation](https://github.com/Pratik00531/Oxyheal/wiki) • [Changelog](https://github.com/Pratik00531/Oxyheal/releases)
+
+**Last Updated**: February 2026 | **Version**: 1.0.0
 
 </div>
